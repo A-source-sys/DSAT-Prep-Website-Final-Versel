@@ -57,6 +57,10 @@ difficulty based on student performance.
 - Session-based difficulty tracking
 
 ---
+## How to run the project
+- Make sure you have the SQL Flask Program installed
+- Run python app.py
+- Go to the server created by SQL and the website should load up there
 
 ## 🔌 API Endpoints
 
@@ -68,3 +72,4 @@ Fetches unseen questions by subcategory and difficulty
 {
   "subcategory": "Linear equations in one variable"
 }
+
