@@ -135,13 +135,13 @@ Return ONLY valid JSON in this format:
   "explanation": "step-by-step explanation"
 }}
 """
-    t = 0.3 + random.random()*0.2
+    
     response = client.chat.completions.create(
         model="gpt-4.1-nano",
         messages=[{"role": "user", "content": prompt}],
-        temperature=t,
+        temperature=0.3 + random.random()*0.2,
     )
-    print("Temperature used:", t)
+
 
     return json.loads(response.choices[0].message.content)
 
@@ -365,3 +365,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
