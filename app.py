@@ -139,6 +139,7 @@ Return ONLY valid JSON in this format:
         model="gpt-4.1-nano",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.3 + random.random()*0.2,
+        response_format={"type": "json_object"},
     )
     
     print(response.choices[0].message.content) 
