@@ -16,10 +16,15 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__, static_folder="static")
 app.secret_key = "dev-secret-key"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sat_practice.db"
+is_vercel = os.getenv("VERCEL") == "1"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/sat_practice.db" if is_vercel else "sqlite:///sat_practice.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
+
 
 # --------------------
 # In-Memory Session Store
@@ -362,6 +367,5 @@ def submit():
 # Bootstrap
 # --------------------
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
+
