@@ -3,23 +3,20 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SAT Practice</title>
+    <title>SAT Mastery</title>
     <style>
         body {
-            font-family: Arial;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
             background: #f5f5f5;
         }
 
         header {
             background: #1a237e;
-            padding: 20px;
             color: white;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
         nav a {
@@ -32,330 +29,83 @@
         .hero {
             background: #303f9f;
             color: white;
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
         .container {
-            width: 90%;
             max-width: 900px;
-            margin: 30px auto;
+            margin: 40px auto;
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .question {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            background: #fdfdfd;
+        .cta {
+            text-align: center;
+            margin-top: 30px;
         }
 
-        .stimulus {
-            background-color: #e8eaf6;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-left: 5px solid #3f51b5;
-        }
-
-        .options label {
-            display: block;
-            margin: 6px 0;
-            cursor: pointer;
-        }
-
-        .correct {
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        .incorrect {
-            color: #f44336;
-            font-weight: bold;
-        }
-
-        .explanation {
-            margin-top: 8px;
-            font-style: italic;
-            color: #555;
-        }
-
-        #submitBtn,
-        #nextRound,
-        #startBtn {
-            margin-top: 20px;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
+        .cta a {
+            background: #007bff;
+            color: white;
+            padding: 15px 25px;
             border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
         }
 
-        #startBtn,
-        #submitBtn {
-            background-color: #007bff;
-            color: white;
-        }
-
-        #nextRound {
-            background-color: #28a745;
-            color: white;
-        }
-
-        #submitBtn:hover,
-        #startBtn:hover {
-            background-color: #0056b3;
-        }
-
-        #nextRound:hover {
-            background-color: #218838;
-        }
-
-        #statusBar {
-            margin-top: 10px;
-            font-weight: bold;
+        .cta a:hover {
+            background: #0056b3;
         }
 
         footer {
             text-align: center;
-            /* Optional styling for appearance */
             padding: 20px;
-            background-color: #f4f4f4;
-            width: 100%;
+            margin-top: 40px;
+            background: #1a237e;
+            color: white;
         }
     </style>
 </head>
 
 <body>
+
     <header>
         <h1>SAT Mastery</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="signup.html">Sign Up</a>
+            <a href="/">Home</a>
+            <a href="/practice">Practice</a>
+            <a href="/signup">Sign Up</a>
+            <a href="/login">Login</a>
+            
         </nav>
     </header>
 
     <section class="hero">
-        <h2>Boost Your SAT Score With Expert Guidance</h2>
-        <p>Personalized practice, explanations, and round-based questions designed to help you excel.</p>
+        <h2>Master the SAT with Smart Practice</h2>
+        <p>Adaptive questions, explanations, and timed rounds — all in one place.</p>
     </section>
 
     <div class="container">
-        <h2>SAT Practice Session</h2>
+        <h3>Why SAT Mastery?</h3>
+        <ul>
+            <li>📚 Practice by subcategory</li>
+            <li>⏱ Timed rounds</li>
+            <li>🧠 Adaptive difficulty</li>
+            <li>✅ Instant explanations</li>
+        </ul>
 
-        <div>
-            <label>Subcategory:
-                <select id="subcategory"></select>
-            </label>
-
-            <button id="startBtn" onclick="startSession()">Start Session</button>
+        <div class="cta">
+            <a href="/practice">Start Practicing</a>
         </div>
-
-        <div id="statusBar">
-            <span>Round: <span id="roundNum">0</span></span> |
-            <span>Time Remaining: <span id="timer">00:00</span></span>
-        </div>
-
-        <div id="questionsContainer"></div>
-
-        <button id="submitBtn" style="display:none;" onclick="submitBatch()">Submit Answers</button>
-        <button id="nextRound" style="display:none;" onclick="loadNextRound()">Next Round</button>
     </div>
 
     <footer>
-        &copy; 2025 SAT Mastery. All rights reserved.
+        &copy; 2025 SAT Mastery
     </footer>
 
-    <script>
-        const SUBCATEGORIES = [
-            // Combine all subcategories from both categories
-            "Linear equations in one variable",
-            "Linear functions",
-            "Linear equations in two variables",
-            "Systems of two linear equations in two variables",
-            "Linear inequalities in one or two variables",
-            "Nonlinear functions",
-            "Nonlinear equations in one variable and systems of equations in two variables",
-            "Ratios, rates, proportional relationships, and units",
-            "Percentages",
-            "One-variable data: Distributions and measures of center and spread",
-            "Two-variable data: Models and scatterplots",
-            "Probability and conditional probability",
-            "Inference from sample statistics and margin of error",
-            "Evaluating statistical claims: Observational studies and experiments",
-            "Lines, angles, and triangles",
-            "Right triangles and trigonometry",
-            "Circles",
-            "Central Ideas and Details",
-            "Command of Evidence",
-            "Inferences",
-            "Words in Context",
-            "Text Structure and Purpose",
-            "Cross-Text Connections",
-            "Transitions",
-            "Rhetorical Synthesis",
-            "Boundaries",
-            "Form, Structure, and Sense"
-        ];
-
-        let currentQuestions = [];
-        let answers = {};
-        let subcategory = "";
-        let round = 0;
-        let timerInterval;
-        let timeRemaining = 0;
-
-        // -------------------- Timer --------------------
-        function startTimer(seconds = 300) {
-            clearInterval(timerInterval);
-            timeRemaining = seconds;
-            updateTimerDisplay();
-            timerInterval = setInterval(() => {
-                timeRemaining--;
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    alert("⏰ Time's up! Submitting your answers automatically.");
-                    submitBatch();
-                }
-                updateTimerDisplay();
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const minutes = String(Math.floor(timeRemaining / 60)).padStart(2, '0');
-            const seconds = String(timeRemaining % 60).padStart(2, '0');
-            document.getElementById("timer").innerText = `${minutes}:${seconds}`;
-        }
-
-        // -------------------- Subcategories --------------------
-        function populateSubcategories() {
-            const subSelect = document.getElementById("subcategory");
-            subSelect.innerHTML = "";
-            SUBCATEGORIES.forEach(sc => {
-                const opt = document.createElement("option");
-                opt.value = sc;
-                opt.textContent = sc;
-                subSelect.appendChild(opt);
-            });
-        }
-        document.addEventListener("DOMContentLoaded", populateSubcategories);
-
-        // -------------------- Start Session --------------------
-        async function startSession() {
-            subcategory = document.getElementById("subcategory").value;
-            round = 1;
-            document.getElementById("roundNum").innerText = round;
-            await loadRound();
-        }
-
-        async function loadRound() {
-            const res = await fetch("/start", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ subcategory }) // ONLY subcategory sent
-            });
-            const data = await res.json();
-            currentQuestions = data.questions;
-            answers = {};
-            if (!currentQuestions || currentQuestions.length === 0) {
-                alert("🎉 You completed all questions in this subcategory!");
-                document.getElementById("questionsContainer").innerHTML = "";
-                document.getElementById("submitBtn").style.display = "none";
-                document.getElementById("nextRound").style.display = "none";
-                clearInterval(timerInterval);
-                return;
-            }
-            renderQuestions();
-            startTimer(300); // 5 min timer
-        }
-
-        function renderQuestions() {
-            const container = document.getElementById("questionsContainer");
-            container.innerHTML = "";
-
-            currentQuestions.forEach((q, i) => {
-                const div = document.createElement("div");
-                div.className = "question";
-
-                if (q.stimulus) {
-                    const stim = document.createElement("div");
-                    stim.className = "stimulus";
-                    stim.innerHTML = q.stimulus;
-                    div.appendChild(stim);
-                }
-
-                const prompt = document.createElement("div");
-                prompt.innerHTML = `<strong>Q${i + 1}.</strong> ${q.prompt}`;
-                div.appendChild(prompt);
-
-                const optsDiv = document.createElement("div");
-                optsDiv.className = "options";
-                q.choices.forEach(choice => {
-                    const label = document.createElement("label");
-                    const input = document.createElement("input");
-                    input.type = "radio";
-                    input.name = `q_${q.id}`;
-                    input.value = choice;
-                    input.onchange = () => answers[q.id] = choice;
-                    label.appendChild(input);
-                    label.append(` ${choice}`);
-                    optsDiv.appendChild(label);
-                });
-                div.appendChild(optsDiv);
-                container.appendChild(div);
-            });
-
-            document.getElementById("submitBtn").style.display = "inline-block";
-            document.getElementById("nextRound").style.display = "none";
-        }
-
-        // -------------------- Submit --------------------
-        async function submitBatch() {
-            clearInterval(timerInterval);
-
-            const payload = currentQuestions.map(q => ({
-                question_id: q.id,
-                user_answer: answers[q.id],
-                correct_answer: q.correct_answer
-            }));
-
-            const res = await fetch("/submit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ subcategory, answers: payload })
-            });
-            const data = await res.json();
-
-            currentQuestions.forEach((q, i) => {
-                const div = document.querySelectorAll(".question")[i];
-                const user = answers[q.id];
-                const correct = q.correct_answer;
-
-                const result = document.createElement("div");
-                result.className = user === correct ? "correct" : "incorrect";
-                result.innerText = user === correct ? "Correct" : `Incorrect (Correct: ${correct})`;
-
-                const exp = document.createElement("div");
-                exp.className = "explanation";
-                exp.innerHTML = q.explanation || "";
-
-                div.appendChild(result);
-                div.appendChild(exp);
-            });
-
-            document.getElementById("submitBtn").style.display = "none";
-            document.getElementById("nextRound").style.display = "inline-block";
-        }
-
-        async function loadNextRound() {
-            round++;
-            document.getElementById("roundNum").innerText = round;
-            await loadRound();
-        }
-    </script>
 </body>
 
 </html>

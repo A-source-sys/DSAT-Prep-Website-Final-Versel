@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel | SAT Mastery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <h1>Admin Dashboard</h1>
+  <p>Generate SAT questions using AI and add them to the database.</p>
+
+  <form id="generateForm">
+    <label>Category</label>
+    <select id="category">
+      <option value="math">Math</option>
+      <option value="english">English</option>
+    </select>
+
+    <label>Subcategory</label>
+    <input id="subcategory" placeholder="e.g. Linear equations" />
+
+    <label>Difficulty (1–3)</label>
+    <input id="difficulty" type="number" min="1" max="3" />
+
+    <button type="submit">Generate Question</button>
+  </form>
+
+  <h3>Generated Question Preview</h3>
+<pre id="output"></pre>
+
+  <script>
+    document.getElementById("generateForm").onsubmit = async (e) => {
+      e.preventDefault();
+
+      const res = await fetch("/admin/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: category.value,
+          subcategory: subcategory.value,
+          difficulty: difficulty.value
+        })
+      });
+
+      document.getElementById("output").textContent =
+        JSON.stringify(await res.json(), null, 2);
+    };
+  </script>
+</body>
+</html>
